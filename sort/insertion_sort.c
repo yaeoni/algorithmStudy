@@ -10,7 +10,7 @@ int main(void){
 
     for( i = 0; i< 9 ; i++){
         j = i;
-            while( ary[j] > ary[j+1]){
+            while( j>= 0 && ary[j] > ary[j+1]){
                 temp = ary[j+1];
                 ary[j+1] = ary[j];
                 ary[j] = temp;
