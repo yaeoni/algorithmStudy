@@ -15,7 +15,7 @@ void selectiocSort(int* list, int n){
             }
         }
 
-        if( min != i )
+        if( minIndex != i )
             SWAP(list[minIndex], list[i], temp);
     }
 }
@@ -42,7 +42,7 @@ void insertionSort(int* list, int n){
         for(int j = i -1 ; (j >= 0 && key < list[j] ) ; j-- ){
             list[j+1] = list[j];
         }
-        list[j] = key;   
+        list[i] = key;   
     }
 }
 
@@ -93,7 +93,7 @@ int* merge(int* list, int left, int mid, int right){
     int index = left;
 
     while(low <= mid && high <= right ){
-        if(list[i] < list[high])
+        if(list[mid] < list[high])
             sorted[index++] = list[low++];
         else
             sorted[index++] = list[high++];
@@ -105,7 +105,7 @@ int* merge(int* list, int left, int mid, int right){
             sorted[index++] = list[i];
     }
     else{
-        for( imt i = low ; i <= mid ; i++)
+        for( int i = low ; i <= mid ; i++)
             sorted[index++] = list[i];
     }
 
@@ -124,4 +124,44 @@ void mergeSort(int* list, int left, int right){
         sorted = merge(list, left, mid, right);
     }    
 
+}
+
+void heapify(int* list, int index, int size){
+
+    int temp;
+    int largest = index;
+    
+    int leftChild = (index*2);
+    int rightChild = (index*2+1);
+
+    if( leftChild < size && list[leftChild] > list[largest])
+        largest = leftChild;
+    if( rightChild < size && list[rightChild] > list[largest])
+        largest = rightChild;
+    
+    // 위치가 바뀌어야 한다면
+    if(largest != index){
+        SWAP(list[index], list[largest], temp);
+
+        // 자리가 바뀐 자식에 의해 한 번 더 heapify
+        heapify(list, largest, size);
+    }
+}
+
+void heapSort(int* list, int size){
+    for(int i = size/2 ; i >= 1 ; i--){
+        heapify(list, i, size);
+    }
+}
+
+int main(void){
+
+    int ary[6] = {0, 1, 2, 3, 4, 5};
+
+    heapSort(ary, 6);
+    
+    for(int i = 1 ; i < 6 ; i++)
+        cout << ary[i];
+
+    return 0;
 }
