@@ -4,7 +4,7 @@ def solution(bridge_length, weight, truck_weights):
     time = 0
     bridge = deque([0]*bridge_length)
     truck_weights = truck_weights[::-1]
-    total_weights = 0
+    total_weight = 0
     
     # while 조건을 truck_weights 로 두고, 마지막 남은 놈의 몫을 더해주는 것! 어떻게 이렇게 생각하지..
     while truck_weights:
