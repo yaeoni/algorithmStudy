@@ -23,3 +23,24 @@ def solution(clothes):
     cnt = Counter([kind for name, kind in clothes])
     answer = reduce(lambda x, y: x*(y+1), cnt.values(), 1) - 1
     return answer
+
+# 다시 풀어보기 (my own)
+def solution(clothes):
+    result = 1
+    
+    choice = {}
+    
+    for item in clothes:
+        # 의상종류가 없으면 만들어주고, 있으면 += 1
+        if(item[1] in choice):
+            choice[item[1]] +=1
+        else:
+            # 아예 뽑지 않는 경우가 필요하므로 2로 초기화 해야함
+            choice[item[1]] = 2
+        
+            
+    for item in choice:
+        result *= choice[item]
+    
+    result -= 1
+    return result
