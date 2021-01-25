@@ -27,6 +27,7 @@ def permutation(arr, r):
                 generate(chosen, used)
                 used[i] = 0
                 chosen.pop()
+
     generate([], used)
 
 permutation('ABCD', 2)
@@ -37,21 +38,19 @@ def combination(arr, r):
     # 1.
     arr = sorted(arr)
 
-    # 2.
+    # 2. 재귀적으로 불릴 함수
     def generate(chosen):
         if len(chosen) == r:
             print(chosen)
             return
 
-    	# 3. 시작 지점을 chosen에 저장된 마지막 값으로  = 조합은 순서를 고려하지 않는다.
+    	# 3. 시작 지점을 chosen에 저장된 마지막 값의 "다음" index으로  = 조합은 순서를 고려하지 않는다.
         start = arr.index(chosen[-1]) + 1 if chosen else 0
-
         for nxt in range(start, len(arr)):
-            # 중복 제거
-            if used[nxt] == 0 and (nxt == 0 or arr[nxt-1] != arr[nxt] or used[nxt-1]):
-                chosen.append(arr[nxt])
-                generate(chosen)
-                chosen.pop()
+            chosen.append(arr[nxt])
+            generate(chosen)
+            chosen.pop()
+
     generate([])
 
 combination('ABCDE', 2)
