@@ -17,7 +17,8 @@ def nqueen(case, N):
             candidate.remove(case[i])
 
         dist = len(case) - i # 대각선에 위치한 요소
-
+        # x좌표끼리, y좌표끼리 뺴서
+        
         # 각 퀸들에 관한 대각선 위치들 지우기
         if case[i]+dist in candidate:
             candidate.remove(case[i]+dist)
