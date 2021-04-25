@@ -1,54 +1,44 @@
 #include <stdio.h>
+#include "sort.h"
 
-int num = 10;
-int ary[10] = { 1, 10, 5, 8, 7, 6, 4, 3, 2, 9 };
+// return pivot's idx
+int partition(int* list, int left, int right){
 
-void quick_sort(int* data, int start, int end);
+    int low, high, temp;
+    int pivot = list[left];
 
-int main(void){
+    low = left+1;
+    high = right;
 
-    quick_sort(ary, 0, num-1);
+    while(low < high){
 
-    for(int i = 0; i < 10; i ++)
-        printf("%3d", ary[i]);
+        while( list[low] < pivot && low <= right ) low++;
+        while( list[high] > pivot && high >= left ) high--;
 
-    return 0;
+        // swap when crossed
+        if(low < high){
+            temp = list[high];
+			list[high] = list[low];
+			list[low] = temp;
+        }
+    }
+
+    // swap with pivot and return
+    temp = list[high];
+    list[high] = pivot;
+    list[left] = temp;
+
+    return high;
 }
 
-void quick_sort(int* data, int start, int end){
-   
-    /* if the num of data is 1 */ 
-    if(start >= end)
-        return;
+void quick_sort(int* list, int left, int right){
+    int pivotIndex;
 
-    int key = start; // = pivot
+    if(left < right){
+        pivotIndex = partition(list, left, right);
 
-    int i = start + 1; // bigger value than pivot
-    int j = end; // smaller valu e
-    int temp;
-
-    /* untill crossed */
-    while( i <= j ){
-
-        while(data[i] < data[key])
-            i++; 
-        while(data[j] > data[key] && j > start ) // be careful to not over the range of ary.
-            j--;
-
-        if( i > j ){
-
-            // swap data[j] (smaller value) with pivot
-            temp = data[j];
-            data[j] = data[key];
-            data[key] = temp;
-        }else{
-            temp = data[j];
-            data[j] = data[i];
-            data[i] = temp;
-        }
-
-         quick_sort(data, start, j-1); // left
-         quick_sort(data, j+1, end); // right
+        quick_sort(list, left, pivotIndex -1);
+        quick_sort(list, pivotIndex+1, right);
     }
 
 }
