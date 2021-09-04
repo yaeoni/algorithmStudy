@@ -38,7 +38,8 @@ int solution(string str1, string str2) {
     vector<string> one = makeTokens(str1);
     vector<string> two = makeTokens(str2);
     
-    if(one.size() == 0 || two.size() == 0) return 65536;
+    // 모두 공집합일 때 처리
+    if(one.size() == 0 && two.size() == 0) return 65536;
     
     uni = one.size() + two.size();
     
